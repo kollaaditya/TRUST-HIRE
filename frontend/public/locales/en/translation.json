@@ -1,0 +1,57 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "contact": "Contact",
+    "findJobs": "Find Jobs",
+    "postJob": "Post Job"
+  },
+  "home": {
+    "title": "Welcome to TrustHire",
+    "subtitle": "Find Your Dream Job Today",
+    "description": "Connect with top employers and discover amazing career opportunities that match your skills and aspirations.",
+    "getStarted": "Get Started",
+    "learnMore": "Learn More",
+    "features": {
+      "title": "Why Choose TrustHire?",
+      "quality": "Quality Jobs",
+      "qualityDesc": "Access verified job opportunities from trusted employers",
+      "fast": "Quick Matching",
+      "fastDesc": "Our AI matches you with relevant positions instantly",
+      "support": "24/7 Support",
+      "supportDesc": "Get help whenever you need it from our expert team"
+    }
+  },
+  "about": {
+    "title": "About TrustHire",
+    "mission": "Our Mission",
+    "missionText": "To bridge the gap between talented professionals and their dream careers through innovative technology and personalized matching.",
+    "vision": "Our Vision",
+    "visionText": "To become the world's most trusted platform for career advancement and professional growth.",
+    "team": "Our Team",
+    "teamText": "We are a diverse group of professionals passionate about helping others succeed in their careers."
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Get in touch with our team",
+    "name": "Full Name",
+    "email": "Email Address",
+    "message": "Your Message",
+    "send": "Send Message",
+    "info": {
+      "address": "Address",
+      "addressText": "123 Business Street, Tech City, TC 12345",
+      "phone": "Phone",
+      "phoneText": "+1 (555) 123-4567",
+      "emailLabel": "Email",
+      "emailText": "contact@trusthire.com"
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "success": "Success!",
+    "submit": "Submit",
+    "cancel": "Cancel"
+  }
+}

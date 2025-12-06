@@ -1,0 +1,39 @@
+{
+  "nav": {
+    "home": "Home",
+    "findJobs": "Find Jobs",
+    "postJob": "Post Job",
+    "myJobs": "My Jobs",
+    "profile": "Profile",
+    "dashboard": "Dashboard",
+    "logout": "Logout"
+  },
+  "common": {
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "submit": "Submit",
+    "search": "Search",
+    "apply": "Apply",
+    "edit": "Edit",
+    "delete": "Delete"
+  },
+  "home": {
+    "title": "Find Your Dream Job",
+    "subtitle": "Connect with top employers and discover opportunities",
+    "getStarted": "Get Started"
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "email": "Email",
+    "password": "Password"
+  },
+  "jobs": {
+    "title": "Available Jobs",
+    "location": "Location",
+    "salary": "Salary",
+    "company": "Company",
+    "applyNow": "Apply Now"
+  }
+}
