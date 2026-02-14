@@ -45,7 +45,7 @@ const EmployerProfileModal = ({ employerId, isOpen, onClose }: { employerId: str
     if (!employerId || !token) return;
     
     try {
-      const response = await fetch(`http://localhost:3001/api/users/${employerId}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/users/${employerId}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       
@@ -62,7 +62,7 @@ const EmployerProfileModal = ({ employerId, isOpen, onClose }: { employerId: str
     if (!employerId || !token) return;
     
     try {
-      const response = await fetch(`http://localhost:3001/api/follows/status/${employerId}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/follows/status/${employerId}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       
@@ -83,7 +83,7 @@ const EmployerProfileModal = ({ employerId, isOpen, onClose }: { employerId: str
       if (followStatus.isFollowing || followStatus.hasPendingRequest) {
         // Remove follow
         if (followStatus.followId) {
-          const response = await fetch(`http://localhost:3001/api/follows/${followStatus.followId}`, {
+          const response = await fetch(`${import.meta.env.VITE_API_URL}/api/follows/${followStatus.followId}`, {
             method: 'DELETE',
             headers: { 'Authorization': `Bearer ${token}` }
           });
@@ -111,7 +111,7 @@ const EmployerProfileModal = ({ employerId, isOpen, onClose }: { employerId: str
         }
       } else {
         // Send follow request
-        const response = await fetch('http://localhost:3001/api/follows', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/follows', {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${token}`,
