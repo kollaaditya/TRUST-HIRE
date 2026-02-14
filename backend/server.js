@@ -13,10 +13,6 @@ import otpRoutes from './routes/otp.js';
 import adminRoutes from './routes/admin.js';
 
 const app = express();
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
 
 const JWT_SECRET = 'your-secret-key';
 
@@ -912,6 +908,8 @@ app.get('/api/follows/following/:userId', verifyToken, async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
+const PORT = process.env.PORT || 10000;
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
