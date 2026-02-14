@@ -15,7 +15,7 @@ const Auth = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [showOTPVerification, setShowOTPVerification] = useState(false);
-  const [signupData, setSignupData] = useState(null);
+  const [signupData, setSignupData] = useState<any>(null);
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [mobile, setMobile] = useState('');
   const [isSigninOTP, setIsSigninOTP] = useState(false);
@@ -41,7 +41,7 @@ const Auth = () => {
 
     try {
       // Send OTP with fraud detection
-      const otpResponse = await fetch(`${import.meta.env.VITE_API_URL}/api/otp/send-otp`, {
+      const otpResponse = await fetch(import.meta.env.VITE_API_URL + "/api/otp/send-otp", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
