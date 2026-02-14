@@ -38,7 +38,7 @@ export const ChatSystem = ({ jobId, receiverId, receiverName }: ChatSystemProps)
       if (!token) return;
       
       try {
-        const response = await fetch('http://localhost:3001/api/auth/user', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/user`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         
@@ -81,7 +81,7 @@ export const ChatSystem = ({ jobId, receiverId, receiverName }: ChatSystemProps)
     try {
       const token = localStorage.getItem('auth_token');
       console.log('Fetching messages for user:', userId, 'with receiver:', receiverId);
-      const response = await fetch(`http://localhost:3001/api/messages/${receiverId}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/messages/${receiverId}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       
@@ -112,7 +112,7 @@ export const ChatSystem = ({ jobId, receiverId, receiverName }: ChatSystemProps)
 
     try {
       const token = localStorage.getItem('auth_token');
-      const response = await fetch('http://localhost:3001/api/messages', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/messages`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
