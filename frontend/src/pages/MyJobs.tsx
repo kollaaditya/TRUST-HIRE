@@ -56,7 +56,7 @@ const MyJobs = () => {
       }
       
       try {
-        const response = await fetch('http://localhost:3001/api/auth/user', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/jobs`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
