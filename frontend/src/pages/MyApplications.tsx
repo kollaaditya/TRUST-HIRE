@@ -36,7 +36,7 @@ const MyApplications = () => {
       }
       
       try {
-        const response = await fetch('http://localhost:3001/api/auth/user', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/user', {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -62,7 +62,7 @@ const MyApplications = () => {
   const fetchApplications = async (userId: string) => {
     try {
       const token = localStorage.getItem('auth_token');
-      const response = await fetch('http://localhost:3001/api/applications/my-applications', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/applications/my-applications', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
