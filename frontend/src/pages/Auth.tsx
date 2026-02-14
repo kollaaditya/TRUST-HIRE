@@ -64,8 +64,10 @@ const Auth = () => {
       
       if (otpData.otp) {
         // Show OTP in popup for testing
-        alert(`📱 Your OTP is: ${otpData.otp}\n\nCopy this OTP and enter it in the verification boxes.`);
-        toast.success(`OTP: ${otpData.otp} (Also sent via SMS)`);
+        alert("Your OTP is: " + otpData.otp + "\n\nCopy this OTP and enter it in the verification boxes.");
+        toast.success("OTP: " + otpData.otp + " (Also sent via SMS)");
+
+
       } else {
         toast.success('OTP sent to your mobile number via SMS');
       }
