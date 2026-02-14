@@ -24,7 +24,7 @@ const Dashboard = () => {
       
       try {
         console.log('Dashboard: Making API call to verify user');
-        const response = await fetch('http://localhost:3001/api/auth/user', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/user', {
           headers: {
             'Authorization': `Bearer ${token}`
           }
