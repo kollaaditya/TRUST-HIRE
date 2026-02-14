@@ -74,7 +74,7 @@ const JobDetails = () => {
       }
       
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/user', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/user`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -138,7 +138,7 @@ const JobDetails = () => {
       // Check if user has rated after job is loaded
       const token = localStorage.getItem('auth_token');
       if (token) {
-        const userResponse = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/user', {
+        const userResponse = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/user`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         if (userResponse.ok) {
@@ -272,7 +272,7 @@ const JobDetails = () => {
 
     try {
       const token = localStorage.getItem('auth_token');
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/ratings', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/ratings`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -309,7 +309,7 @@ const JobDetails = () => {
     
     try {
       const token = localStorage.getItem('auth_token');
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/applications', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/applications`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
