@@ -27,9 +27,10 @@ app.use('/api/otp', otpRoutes);
 app.use('/api/admin', adminRoutes);
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/trusthire')
-  .then(() => console.log('Connected to MongoDB'))
-  .catch(err => console.error('MongoDB connection error:', err));
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("MongoDB Connected"))
+  .catch(err => console.log("MongoDB connection error:", err));
+
 
 // Middleware to verify JWT token
 const verifyToken = (req, res, next) => {
