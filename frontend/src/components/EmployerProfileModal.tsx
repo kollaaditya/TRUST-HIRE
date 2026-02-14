@@ -111,7 +111,7 @@ const EmployerProfileModal = ({ employerId, isOpen, onClose }: { employerId: str
         }
       } else {
         // Send follow request
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/follows', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/follows`, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${token}`,
