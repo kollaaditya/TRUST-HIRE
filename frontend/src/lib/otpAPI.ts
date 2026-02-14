@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = `${import.meta.env.VITE_API_URL}/api/otp';
+const API_BASE_URL = `${import.meta.env.VITE_API_URL}/api/otp`;
 
 export const otpAPI = {
   sendOTP: async (mobile: string) => {
