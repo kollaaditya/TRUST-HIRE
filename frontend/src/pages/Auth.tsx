@@ -41,7 +41,7 @@ const Auth = () => {
 
     try {
       // Send OTP with fraud detection
-      const otpResponse = await fetch('http://localhost:3001/api/otp/send-otp', {
+      const otpResponse = await fetch(`${import.meta.env.VITE_API_URL}/api/otp/send-otp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
@@ -78,7 +78,7 @@ const Auth = () => {
   const handleOTPSignin = async () => {
     setLoading(true);
     try {
-      const otpResponse = await fetch('http://localhost:3001/api/otp/send-otp', {
+      const otpResponse = await fetch(`${import.meta.env.VITE_API_URL}/api/otp/send-otp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ mobile })
@@ -114,7 +114,7 @@ const Auth = () => {
     setLoading(true);
     try {
       // Verify OTP first
-      const otpResponse = await fetch('http://localhost:3001/api/otp/verify-otp', {
+      const otpResponse = await fetch(`${import.meta.env.VITE_API_URL}/api/otp/verify-otp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
@@ -141,7 +141,7 @@ const Auth = () => {
       }
 
       // OTP verified, now create account
-      const response = await fetch('http://localhost:3001/api/auth/signup', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -202,7 +202,7 @@ const Auth = () => {
     const password = formData.get("password") as string;
 
     try {
-      const response = await fetch('http://localhost:3001/api/auth/signin', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/signin', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
