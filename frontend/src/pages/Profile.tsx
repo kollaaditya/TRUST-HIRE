@@ -108,7 +108,7 @@ const Profile = () => {
       }
       
       try {
-        const response = await fetch('http://localhost:3001/api/auth/user', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/user`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -204,7 +204,7 @@ const Profile = () => {
   const fetchUserStats = async (token: string, userId: string) => {
     try {
       console.log('Fetching stats for user:', userId);
-      const response = await fetch('http://localhost:3001/api/profile/stats', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/profile/stats`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       
@@ -228,7 +228,7 @@ const Profile = () => {
   const fetchFollowRequests = async (token: string) => {
     setLoadingRequests(true);
     try {
-      const response = await fetch('http://localhost:3001/api/follows/requests', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/follows/requests`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       
@@ -248,7 +248,7 @@ const Profile = () => {
     if (!token) return;
 
     try {
-      const response = await fetch(`http://localhost:3001/api/follows/${followId}/accept`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/follows/${followId}/accept`, {
         method: 'PUT',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -277,7 +277,7 @@ const Profile = () => {
     if (!token) return;
 
     try {
-      const response = await fetch(`http://localhost:3001/api/follows/${followId}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/follows/${followId}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -304,7 +304,7 @@ const Profile = () => {
   const fetchFollowersList = async (token: string, userId: string) => {
     setLoadingFollowers(true);
     try {
-      const response = await fetch(`http://localhost:3001/api/follows/followers/${userId}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/follows/followers/${userId}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       
@@ -324,7 +324,7 @@ const Profile = () => {
     if (!token) return;
 
     try {
-      const response = await fetch(`http://localhost:3001/api/follows/${followId}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/follows/${followId}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -351,7 +351,7 @@ const Profile = () => {
   const fetchFollowingList = async (token: string, userId: string) => {
     setLoadingFollowing(true);
     try {
-      const response = await fetch(`http://localhost:3001/api/follows/following/${userId}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/follows/following/${userId}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       
@@ -371,7 +371,7 @@ const Profile = () => {
     if (!token) return;
 
     try {
-      const response = await fetch(`http://localhost:3001/api/follows/${followId}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/follows/${followId}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -422,7 +422,7 @@ const Profile = () => {
     const token = localStorage.getItem('auth_token');
 
     try {
-      const response = await fetch('http://localhost:3001/api/auth/change-password', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/change-password`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -462,7 +462,7 @@ const Profile = () => {
     
     try {
       const token = localStorage.getItem('auth_token');
-      const response = await fetch('http://localhost:3001/api/auth/user', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/user`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
