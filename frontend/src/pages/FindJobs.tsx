@@ -69,7 +69,7 @@ const FindJobs = () => {
       }
       
       try {
-        const response = await fetch('http://localhost:3001/api/auth/user', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/user', {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -94,7 +94,7 @@ const FindJobs = () => {
     setLoading(true);
     
     try {
-      const response = await fetch('http://localhost:3001/api/jobs');
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/jobs');
       
       if (response.ok) {
         const jobsData = await response.json();
