@@ -85,7 +85,7 @@ const MyJobs = () => {
     
     try {
       const token = localStorage.getItem('auth_token');
-      const response = await fetch('http://localhost:3001/api/jobs/my-jobs', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/jobs/my-jobs', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -98,7 +98,7 @@ const MyJobs = () => {
           const applicationsWithDetails = await Promise.all(
             (job.applications || []).map(async (app: any) => {
               try {
-                const userResponse = await fetch(`http://localhost:3001/api/users/${app.applicant_id}`, {
+                const userResponse = await fetch(`${import.meta.env.VITE_API_URL}/api/users/${app.applicant_id}`, {
                   headers: { 'Authorization': `Bearer ${token}` }
                 });
                 
@@ -164,7 +164,7 @@ const MyJobs = () => {
   const handleStatusChange = async (jobId: string, newStatus: string) => {
     try {
       const token = localStorage.getItem('auth_token');
-      const response = await fetch(`http://localhost:3001/api/jobs/${jobId}/status`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/jobs/${jobId}/status`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -189,7 +189,7 @@ const MyJobs = () => {
   const fetchApplicantDetails = async (applicantId: string) => {
     try {
       const token = localStorage.getItem('auth_token');
-      const response = await fetch(`http://localhost:3001/api/users/${applicantId}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/users/${applicantId}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       
@@ -214,7 +214,7 @@ const MyJobs = () => {
   const updateApplicationStatus = async (applicationId: string, newStatus: 'pending' | 'reviewed' | 'accepted' | 'rejected') => {
     try {
       const token = localStorage.getItem('auth_token');
-      const response = await fetch(`http://localhost:3001/api/applications/${applicationId}/status`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/applications/${applicationId}/status`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
