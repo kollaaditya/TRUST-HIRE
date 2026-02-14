@@ -31,7 +31,7 @@ const Messages = () => {
       }
       
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/user', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/user`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -58,7 +58,7 @@ const Messages = () => {
   const fetchConversations = async (userId: string) => {
     try {
       const token = localStorage.getItem('auth_token');
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/conversations', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/conversations`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       
