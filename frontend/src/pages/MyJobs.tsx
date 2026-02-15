@@ -47,38 +47,45 @@ const MyJobs = () => {
   const [selectedApplicant, setSelectedApplicant] = useState<Application | null>(null);
 
   useEffect(() => {
-    const checkAuthAndFetch = async () => {
-      const token = localStorage.getItem('auth_token');
-      
-      if (!token) {
+  const checkAuthAndFetch = async () => {
+    const token = localStorage.getItem("auth_token");
+
+    if (!token) {
+      navigate("/auth");
+      return;
+    }
+
+    try {
+      // ✅ FIRST VERIFY USER
+      const userResponse = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/auth/user`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!userResponse.ok) {
+        localStorage.removeItem("auth_token");
         navigate("/auth");
         return;
       }
-      
-      try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/jobs`, {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
-        
-        if (!response.ok) {
-          localStorage.removeItem('auth_token');
-          navigate("/auth");
-          return;
-        }
-        
-        const data = await response.json();
-        const userId = data.user._id || data.user.id;
-        setUserId(userId);
-        fetchMyJobs(userId);
-      } catch (error) {
-        localStorage.removeItem('auth_token');
-        navigate("/auth");
-      }
-    };
-    checkAuthAndFetch();
-  }, [navigate]);
+
+      const userData = await userResponse.json();
+      setUserId(userData.user._id);
+
+      // ✅ THEN FETCH JOBS
+      fetchMyJobs(userData.user._id);
+    } catch (error) {
+      localStorage.removeItem("auth_token");
+      navigate("/auth");
+    }
+  };
+
+  checkAuthAndFetch();
+}, [navigate]);
+
 
   const fetchMyJobs = async (currentUserId: string) => {
     setLoading(true);
