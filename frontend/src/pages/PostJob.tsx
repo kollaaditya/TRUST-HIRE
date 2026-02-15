@@ -70,20 +70,18 @@ const PostJob = () => {
 
       const data = await response.json();
 
-      // SAFELY extract user id
-      const extractedUserId =
-        data?._id ||
-        data?.id ||
-        data?.user?._id ||
-        data?.user?.id;
+const extractedUserId =
+  data?._id ||
+  data?.id;
 
-      if (!extractedUserId) {
-        localStorage.removeItem("auth_token");
-        navigate("/auth");
-        return;
-      }
+if (!extractedUserId) {
+  localStorage.removeItem("auth_token");
+  navigate("/auth");
+  return;
+}
 
-      setUserId(extractedUserId);
+setUserId(extractedUserId);
+
     } catch (error) {
       localStorage.removeItem("auth_token");
       navigate("/auth");
