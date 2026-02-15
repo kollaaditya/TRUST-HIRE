@@ -40,8 +40,19 @@ const Dashboard = () => {
         }
         
         const data = await response.json();
-        console.log('Dashboard: User data received:', data);
-        setUser(data);
+console.log('Dashboard: User data received:', data);
+
+// extract correctly
+const extractedUser = data?.user || data;
+
+if (!extractedUser?._id && !extractedUser?.id) {
+  localStorage.removeItem("auth_token");
+  navigate("/auth");
+  return;
+}
+
+setUser(extractedUser);
+
       } catch (error) {
         console.error('Dashboard: Error checking user:', error);
         localStorage.removeItem('auth_token');
