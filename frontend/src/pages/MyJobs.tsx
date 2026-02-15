@@ -73,10 +73,23 @@ const MyJobs = () => {
       }
 
       const userData = await userResponse.json();
-      setUserId(userData.user._id);
 
-      // ✅ THEN FETCH JOBS
-      fetchMyJobs(userData.user._id);
+ // safely extract user id
+const extractedUserId =
+  userData?._id ||
+  userData?.id ||
+  userData?.user?._id ||
+  userData?.user?.id;
+
+if (!extractedUserId) {
+  localStorage.removeItem("auth_token");
+  navigate("/auth");
+  return;
+}
+
+setUserId(extractedUserId);
+fetchMyJobs(extractedUserId);
+
     } catch (error) {
       localStorage.removeItem("auth_token");
       navigate("/auth");
