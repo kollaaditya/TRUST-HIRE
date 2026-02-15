@@ -43,7 +43,7 @@ const PostJob = () => {
   const [jobType, setJobType] = useState("");
 
  
-  useEffect(() => {
+useEffect(() => {
   const checkUser = async () => {
     const token = localStorage.getItem("auth_token");
 
@@ -70,19 +70,25 @@ const PostJob = () => {
 
       const data = await response.json();
 
-const extractedUserId =
-  data?._id ||
-  data?.id;
+      console.log("POST JOB USER DATA:", data);
 
-if (!extractedUserId) {
-  localStorage.removeItem("auth_token");
-  navigate("/auth");
-  return;
-}
+      // FIXED SAFE EXTRACTION
+      const extractedUser =
+        data?.user || data;
 
-setUserId(extractedUserId);
+      const extractedUserId =
+        extractedUser?._id || extractedUser?.id;
+
+      if (!extractedUserId) {
+        localStorage.removeItem("auth_token");
+        navigate("/auth");
+        return;
+      }
+
+      setUserId(extractedUserId);
 
     } catch (error) {
+      console.error("Auth error:", error);
       localStorage.removeItem("auth_token");
       navigate("/auth");
     }
@@ -90,6 +96,7 @@ setUserId(extractedUserId);
 
   checkUser();
 }, [navigate]);
+
 
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
