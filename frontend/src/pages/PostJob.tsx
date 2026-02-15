@@ -42,6 +42,7 @@ const PostJob = () => {
   const [category, setCategory] = useState("");
   const [jobType, setJobType] = useState("");
 
+ 
   useEffect(() => {
   const checkUser = async () => {
     const token = localStorage.getItem("auth_token");
@@ -69,6 +70,7 @@ const PostJob = () => {
 
       const data = await response.json();
 
+      // SAFELY extract user id
       const extractedUserId =
         data?._id ||
         data?.id ||
