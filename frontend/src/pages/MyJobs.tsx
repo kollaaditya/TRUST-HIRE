@@ -73,6 +73,8 @@ const MyJobs = () => {
       }
 
       const userData = await userResponse.json();
+      console.log("USER DATA:", userData);
+
 
  // safely extract user id
 const extractedUserId =
