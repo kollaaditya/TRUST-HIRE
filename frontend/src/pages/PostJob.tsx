@@ -43,44 +43,54 @@ const PostJob = () => {
   const [jobType, setJobType] = useState("");
 
   useEffect(() => {
-    const checkUser = async () => {
-      const token = localStorage.getItem('auth_token');
-      console.log('Checking user authentication, token:', token ? 'exists' : 'missing');
-      
-      if (!token) {
-        console.log('No token found, redirecting to auth');
+  const checkUser = async () => {
+    const token = localStorage.getItem("auth_token");
+
+    if (!token) {
+      navigate("/auth");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/auth/user`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        localStorage.removeItem("auth_token");
         navigate("/auth");
         return;
       }
-      
-      try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/jobs`, {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
-        
-        console.log('Auth response status:', response.status);
-        
-        if (!response.ok) {
-          console.log('Auth failed, removing token');
-          localStorage.removeItem('auth_token');
-          navigate("/auth");
-          return;
-        }
-        
-        const data = await response.json();
-        const userId = data.user._id || data.user.id;
-        setUserId(userId);
-        console.log('User authenticated successfully:', { userId, user: data.user });
-      } catch (error) {
-        console.error('Auth error:', error);
-        localStorage.removeItem('auth_token');
+
+      const data = await response.json();
+
+      const extractedUserId =
+        data?._id ||
+        data?.id ||
+        data?.user?._id ||
+        data?.user?.id;
+
+      if (!extractedUserId) {
+        localStorage.removeItem("auth_token");
         navigate("/auth");
+        return;
       }
-    };
-    checkUser();
-  }, [navigate]);
+
+      setUserId(extractedUserId);
+    } catch (error) {
+      localStorage.removeItem("auth_token");
+      navigate("/auth");
+    }
+  };
+
+  checkUser();
+}, [navigate]);
+
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
