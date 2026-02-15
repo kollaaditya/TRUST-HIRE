@@ -56,42 +56,8 @@ const MyJobs = () => {
     }
 
     try {
-      // ✅ FIRST VERIFY USER
-      const userResponse = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/auth/user`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (!userResponse.ok) {
-        localStorage.removeItem("auth_token");
-        navigate("/auth");
-        return;
-      }
-
-      const userData = await userResponse.json();
-      console.log("USER DATA:", userData);
-
-
- // safely extract user id
-const extractedUserId =
-  userData?._id ||
-  userData?.id ||
-  userData?.user?._id ||
-  userData?.user?.id;
-
-if (!extractedUserId) {
-  localStorage.removeItem("auth_token");
-  navigate("/auth");
-  return;
-}
-
-setUserId(extractedUserId);
-fetchMyJobs(extractedUserId);
-
+      // Just try fetching jobs directly
+      await fetchMyJobs("");
     } catch (error) {
       localStorage.removeItem("auth_token");
       navigate("/auth");
