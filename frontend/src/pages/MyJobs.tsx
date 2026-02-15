@@ -46,108 +46,53 @@ const MyJobs = () => {
   const [selectedChat, setSelectedChat] = useState<{jobId: string, applicantId: string, applicantName: string} | null>(null);
   const [selectedApplicant, setSelectedApplicant] = useState<Application | null>(null);
 
-  useEffect(() => {
+useEffect(() => {
   const checkAuthAndFetch = async () => {
     const token = localStorage.getItem("auth_token");
 
+    console.log("TOKEN:", token);
+
     if (!token) {
+      console.log("No token found");
       navigate("/auth");
       return;
     }
 
     try {
-      // Just try fetching jobs directly
-      await fetchMyJobs("");
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/jobs/my-jobs`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      console.log("MY JOBS STATUS:", response.status);
+
+      if (!response.ok) {
+        console.log("Token invalid or API failed");
+        localStorage.removeItem("auth_token");
+        navigate("/auth");
+        return;
+      }
+
+      const jobsData = await response.json();
+      console.log("JOBS DATA:", jobsData);
+
+      setJobs(jobsData);
     } catch (error) {
+      console.log("ERROR:", error);
       localStorage.removeItem("auth_token");
       navigate("/auth");
+    } finally {
+      setLoading(false);
     }
   };
 
   checkAuthAndFetch();
 }, [navigate]);
-
-
-  const fetchMyJobs = async (currentUserId: string) => {
-    setLoading(true);
-    
-    try {
-      const token = localStorage.getItem('auth_token');
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/jobs/my-jobs`, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-      
-      if (response.ok) {
-        const jobsData = await response.json();
-        const formattedJobs = await Promise.all(jobsData.map(async (job: any) => {
-          // Fetch applicant details for each application
-          const applicationsWithDetails = await Promise.all(
-            (job.applications || []).map(async (app: any) => {
-              try {
-                const userResponse = await fetch(`${import.meta.env.VITE_API_URL}/api/users/${app.applicant_id}`, {
-                  headers: { 'Authorization': `Bearer ${token}` }
-                });
-                
-                let applicantProfile = null;
-                if (userResponse.ok) {
-                  const userData = await userResponse.json();
-                  applicantProfile = {
-                    full_name: userData.full_name,
-                    username: userData.username,
-                    phone: userData.phone,
-                    date_of_birth: userData.date_of_birth,
-                    location: userData.location,
-                    user_role: userData.user_role,
-                    resume_url: userData.resume_url
-                  };
-                }
-                
-                return {
-                  id: app._id,
-                  status: app.status,
-                  message: app.message,
-                  created_at: app.created_at,
-                  applicant_id: app.applicant_id,
-                  profiles: applicantProfile
-                };
-              } catch (error) {
-                console.error('Error fetching applicant:', error);
-                return {
-                  id: app._id,
-                  status: app.status,
-                  message: app.message,
-                  created_at: app.created_at,
-                  applicant_id: app.applicant_id,
-                  profiles: null
-                };
-              }
-            })
-          );
-          
-          return {
-            id: job._id,
-            title: job.title,
-            description: job.description,
-            category: job.category,
-            location: job.location,
-            status: job.status,
-            created_at: job.created_at,
-            applications: applicationsWithDetails
-          };
-        }));
-        setJobs(formattedJobs);
-      } else {
-        setJobs([]);
-      }
-    } catch (error) {
-      console.error('Fetch error:', error);
-      setJobs([]);
-    } finally {
-      setLoading(false);
-    }
-  };
+        
 
   const handleStatusChange = async (jobId: string, newStatus: string) => {
     try {
