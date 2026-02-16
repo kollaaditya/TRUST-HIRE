@@ -103,6 +103,14 @@ setUser(extractedUser);
             <Button variant="outline" onClick={() => navigate("/profile")} className="hover:bg-primary/5 transition-all">
               Profile
             </Button>
+            <Button variant="outline" onClick={() => navigate("/follow-requests")}className="hover:bg-primary/5 transition-all">
+              Follow Requests
+            </Button>
+
+           <Button variant="outline" onClick={() => navigate("/followers")}className="hover:bg-primary/5 transition-all">
+                Followers
+            </Button>
+
             <Button variant="ghost" onClick={handleSignOut} className="hover:bg-destructive/10 hover:text-destructive transition-all">
               <LogOut className="mr-2 h-4 w-4" />
               Sign Out
