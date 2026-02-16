@@ -76,9 +76,11 @@ useEffect(() => {
         navigate("/auth");
         return;
       }
+      const jobsData = await response.json();
+console.log("JOBS DATA:", jobsData);
 
-      const formattedJobs = jobsData.map((job: any) => ({
-  id: job._id,   
+const formattedJobs = jobsData.map((job: any) => ({
+  id: job._id,   // 🔥 FIX: convert _id → id
   title: job.title,
   description: job.description,
   category: job.category,
@@ -86,7 +88,7 @@ useEffect(() => {
   status: job.status,
   created_at: job.created_at,
   applications: (job.applications || []).map((app: any) => ({
-    id: app._id,   
+    id: app._id,   // 🔥 FIX: convert _id → id
     status: app.status,
     message: app.message,
     created_at: app.created_at,
@@ -96,6 +98,7 @@ useEffect(() => {
 }));
 
 setJobs(formattedJobs);
+
 
     } catch (error) {
       console.log("ERROR:", error);
