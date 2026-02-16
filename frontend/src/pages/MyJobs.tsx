@@ -77,10 +77,26 @@ useEffect(() => {
         return;
       }
 
-      const jobsData = await response.json();
-      console.log("JOBS DATA:", jobsData);
+      const formattedJobs = jobsData.map((job: any) => ({
+  id: job._id,   
+  title: job.title,
+  description: job.description,
+  category: job.category,
+  location: job.location,
+  status: job.status,
+  created_at: job.created_at,
+  applications: (job.applications || []).map((app: any) => ({
+    id: app._id,   
+    status: app.status,
+    message: app.message,
+    created_at: app.created_at,
+    applicant_id: app.applicant_id,
+    profiles: app.profiles || null
+  }))
+}));
 
-      setJobs(jobsData);
+setJobs(formattedJobs);
+
     } catch (error) {
       console.log("ERROR:", error);
       localStorage.removeItem("auth_token");
