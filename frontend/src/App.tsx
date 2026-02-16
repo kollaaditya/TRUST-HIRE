@@ -17,6 +17,9 @@ import NotFound from "./pages/NotFound";
 import OTPVerification from "./components/OTPVerification";
 import OTPLogin from "./pages/OTPLogin";
 import ForgotPassword from "./pages/ForgotPassword";
+import FollowRequests from "./pages/FollowRequests";
+import Followers from "./pages/Followers";
+
 
 const queryClient = new QueryClient();
 
@@ -40,6 +43,9 @@ const App = () => (
           <Route path="/messages" element={<Messages />} />
           <Route path="/otp-verification" element={<OTPVerification />} />
           <Route path="/otp-login" element={<OTPLogin />} />
+          <Route path="/follow-requests" element={<FollowRequests />} />
+          <Route path="/followers" element={<Followers />} />
+
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
