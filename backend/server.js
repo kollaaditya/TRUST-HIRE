@@ -325,19 +325,36 @@ app.get('/api/jobs', async (req, res) => {
 app.get('/api/jobs/my-jobs', verifyToken, async (req, res) => {
   try {
     const jobs = await Job.find({ employer_id: req.userId }).sort({ created_at: -1 });
-    
+
     const jobsWithApplications = await Promise.all(
       jobs.map(async (job) => {
+
         const applications = await Application.find({ job_id: job._id });
+
+        const applicationsWithProfiles = await Promise.all(
+          applications.map(async (app) => {
+
+            const applicantProfile = await User.findById(app.applicant_id)
+              .select('full_name username phone date_of_birth location user_role resume_url');
+
+            return {
+              ...app.toObject(),
+              profiles: applicantProfile || null
+            };
+          })
+        );
+
         return {
           ...job.toObject(),
-          applications
+          applications: applicationsWithProfiles
         };
       })
     );
-    
+
     res.json(jobsWithApplications);
+
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: error.message });
   }
 });
