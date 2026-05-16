@@ -930,6 +930,11 @@ app.get('/api/follows/following/:userId', verifyToken, async (req, res) => {
   }
 });
 
+// Root route
+app.get("/", (req, res) => {
+  res.send("TrustHire Backend Running");
+});
+
 const PORT = process.env.PORT || 10000;
 
 app.listen(PORT, () => {
