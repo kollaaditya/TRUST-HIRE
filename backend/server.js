@@ -16,7 +16,11 @@ const app = express();
 
 const JWT_SECRET = 'your-secret-key';
 
-app.use(cors());
+app.use(cors({
+  origin: "https://trust-hire-ojfo.vercel.app",
+  credentials: true
+}));
+
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
